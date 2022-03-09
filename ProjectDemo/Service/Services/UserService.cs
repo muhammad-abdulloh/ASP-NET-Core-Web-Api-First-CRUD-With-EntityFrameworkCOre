@@ -13,34 +13,51 @@ namespace ProjectDemo.Service.Services
 
         private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository )
-        {
-            _userRepository = userRepository;
-        }
 
-        public Task<User> CreateAsync(User entity)
-        {
-            return _userRepository.CreateAsync(entity);
-        }
+        /// <summary>
+        /// Include Constructor
+        /// </summary>
+        /// <param name="userRepository"></param>
+        public UserService(IUserRepository userRepository ) => _userRepository = userRepository;
 
-        public Task<bool> DeleteAsync(Expression<Func<User, bool>> expression)
-        {
-            return _userRepository.DeleteAsync(expression);
-        }
 
-        public Task<IQueryable<User>> GetAllAsync(Expression<Func<User, bool>> expression = null)
-        {
-            return _userRepository.GetAllAsync(expression);
-        }
+        /// <summary>
+        /// Create user values
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public Task<User> CreateAsync(User entity) => _userRepository.CreateAsync(entity);
 
-        public Task<User> GetAsync(Expression<Func<User, bool>> expression)
-        {
-            return _userRepository.GetAsync(expression);
-        }
 
-        public Task<User> UpdateAsync(User entity)
-        {
-            return _userRepository.UpdateAsync(entity);
-        }
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public Task<bool> DeleteAsync(Expression<Func<User, bool>> expression) => _userRepository.DeleteAsync(expression);
+
+
+        /// <summary>
+        /// Get All users
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public Task<IQueryable<User>> GetAllAsync(Expression<Func<User, bool>> expression = null) => _userRepository.GetAllAsync(expression);
+
+
+        /// <summary>
+        /// Get user
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public Task<User> GetAsync(Expression<Func<User, bool>> expression) => _userRepository.GetAsync(expression);
+
+
+        /// <summary>
+        /// Update User
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public Task<User> UpdateAsync(User entity) => _userRepository.UpdateAsync(entity);
     }
 }

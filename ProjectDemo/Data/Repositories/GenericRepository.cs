@@ -6,19 +6,34 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+#pragma warning disable
 namespace ProjectDemo.Data.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
 
+        /// <summary>
+        /// Connect dbContext
+        /// </summary>
         private DemoDbContext _dbContext;
         private DbSet<T> _dbSet;
+
+        /// <summary>
+        /// Connect Base
+        /// </summary>
+        /// <param name="dbContext"></param>
         public GenericRepository(DemoDbContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
         }
 
+
+        /// <summary>
+        /// Create Generic 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<T> CreateAsync(T entity)
         {
             var entry = await _dbSet.AddAsync(entity);
@@ -26,6 +41,11 @@ namespace ProjectDemo.Data.Repositories
             return entry.Entity;
         }
 
+        /// <summary>
+        /// Delete item
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync(Expression<Func<T, bool>> expression)
         {
             var entity = await _dbSet.FirstOrDefaultAsync(expression);
@@ -38,16 +58,28 @@ namespace ProjectDemo.Data.Repositories
             return true;
         }
 
+
+        /// <summary>
+        /// GetAll Generic value
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
         public async Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> expression = null)
-        {
-            return expression == null ? _dbSet : _dbSet.Where(expression);
-        }
+            => expression == null ? _dbSet : _dbSet.Where(expression);
 
-        public  Task<T> GetAsync(Expression<Func<T, bool>> expression)
-        {
-            return  _dbSet.FirstOrDefaultAsync(expression);
-        }
+        /// <summary>
+        /// Get by Id item
+        /// </summary>  
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public  Task<T> GetAsync(Expression<Func<T, bool>> expression) => _dbSet.FirstOrDefaultAsync(expression);
 
+
+        /// <summary>
+        /// Update item
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<T> UpdateAsync(T entity)
         {
             var entry = _dbSet.Update(entity);
@@ -58,3 +90,5 @@ namespace ProjectDemo.Data.Repositories
         }
     }
 }
+
+#pragma warning restore

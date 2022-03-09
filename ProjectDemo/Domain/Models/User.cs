@@ -2,6 +2,9 @@
 
 namespace ProjectDemo.Models
 {
+    /// <summary>
+    /// Create User Model 
+    /// </summary>
     public class User
     {
         public int Id { get; set; }
