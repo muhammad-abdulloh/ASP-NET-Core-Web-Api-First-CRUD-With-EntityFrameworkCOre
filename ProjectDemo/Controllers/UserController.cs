@@ -15,43 +15,55 @@ namespace ProjectDemo.Controllers
     {
         private readonly IUserService _userService;
 
-        public UserController( IUserService userService)
-        {
-            _userService = userService;
-        }
+        /// <summary>
+        /// Constructor include
+        /// </summary>
+        /// <param name="userService"></param>
+        public UserController( IUserService userService) => _userService = userService;
 
+
+        /// <summary>
+        /// Create User account
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost("Create")]
-        public Task<User> Create(User user)
-        {
-            return _userService.CreateAsync(user);
-        }
-
-        [HttpGet("{id}")]
-        public Task<User> Get(long id)
-        {
-            return _userService.GetAsync(p => p.Id == id);
-        }
+        public Task<User> Create(User user) => _userService.CreateAsync(user);
 
 
+        /// <summary>
+        /// Get by Id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("id")]
+        public Task<User> Get(long id) => _userService.GetAsync(p => p.Id == id);
+
+
+        /// <summary>
+        /// GetAll users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
-        public Task<IQueryable<User>> GetAll()
-        {
-            return _userService.GetAllAsync();
-        } 
+        public Task<IQueryable<User>> GetAll() => _userService.GetAllAsync();
 
+        /// <summary>
+        /// Delete by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         [HttpDelete("Delete")]
-        public Task<bool> Delete(long id)
-        {
-            return _userService.DeleteAsync(p => p.Id == id);
-        }
-        
-        [HttpPatch("Update")]
-        public Task<User> Update (User user)
-        {
-            return _userService.UpdateAsync(user);
-        }
+        public Task<bool> Delete(long id) => _userService.DeleteAsync(p => p.Id == id);
 
+
+        /// <summary>
+        /// Update user account
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPatch("Update")]
+        public Task<User> Update (User user) => _userService.UpdateAsync(user);
 
 
     }
